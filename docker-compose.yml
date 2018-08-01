@@ -1,0 +1,39 @@
+version: '2.2'
+
+services:
+
+  map-frontend:
+    container_name: map-frontend
+    build:
+        context: ./
+        dockerfile: ./dependencies/map-app/Dockerfile
+    volumes:
+    - "./data/map-app:/usr/src/app:rw"
+    ports:
+    - 8081:8081
+    depends_on:
+    - map-freegeoip
+    networks:
+    - map-app-network
+
+  map-freegeoip:
+    image: fiorix/freegeoip
+    container_name: map-freegeoip
+    restart: always
+    expose:
+    - 8080
+    networks:
+    - map-app-network
+
+  map-internal-node:
+    container_name: map-internal-node
+    restart: always
+    image: "looongcat/karbo-fullnode:latest"
+    volumes:
+    - "./data/map-internal-node:/home/karbo/.karbowanec"
+    networks:
+    - map-app-network
+  
+networks:
+    map-app-network:
+        driver: bridge
