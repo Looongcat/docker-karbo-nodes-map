@@ -11,6 +11,10 @@ services:
     - "./data/map-app:/usr/src/app:rw"
     ports:
     - 8081:8081
+    command:
+    - --startnode=map-internal-node
+    - --freegeoserverUrl=map-freegeoip
+    - --interval=3600
     depends_on:
     - map-freegeoip
     networks:
