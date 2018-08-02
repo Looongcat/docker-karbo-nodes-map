@@ -1,1 +1,2 @@
-data/map-internal-node
+*.dat
+*.bin
