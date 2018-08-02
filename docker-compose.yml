@@ -13,7 +13,7 @@ services:
     - 8081:8081
     command:
     - --startnode=map-internal-node
-    - --freegeoserverUrl=map-freegeoip
+    - --freegeoserverUrl=map-freegeoip:8080
     - --interval=3600
     depends_on:
     - map-freegeoip
