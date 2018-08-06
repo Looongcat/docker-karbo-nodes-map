@@ -7,12 +7,13 @@ services:
     build:
         context: ./
         dockerfile: ./dependencies/map-app/Dockerfile
-    volumes:
-    - "./data/map-app:/usr/src/app:rw"
+    #volumes:
+    #- "./data/map-app:/usr/src/app:rw"
     ports:
     - 8081:8081
     command:
-    - --startnode=map-internal-node
+    - --startnode=looongcat.pp.ua
+    - --port=32348
     - --freegeoserverUrl=map-freegeoip:8080
     - --interval=3600
     depends_on:
@@ -26,17 +27,20 @@ services:
     restart: always
     expose:
     - 8080
+    command:
+    - -quota-max
+    - "0"
     networks:
     - map-app-network
 
-  map-internal-node:
-    container_name: map-internal-node
-    restart: always
-    image: "looongcat/karbo-fullnode:latest"
-    volumes:
-    - "./data/map-internal-node:/home/karbo/.karbowanec"
-    networks:
-    - map-app-network
+#  map-internal-node:
+#    container_name: map-internal-node
+#    restart: always
+#    image: "looongcat/karbo-fullnode:latest"
+#    volumes:
+#    - "./data/map-internal-node:/home/karbo/.karbowanec"
+#    networks:
+#    - map-app-network
   
 networks:
     map-app-network:

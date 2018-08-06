@@ -1,10 +1,10 @@
-FROM node:10
+FROM node:latest
 
 WORKDIR /usr/src/app
 
-COPY ./data/map-app/ ./
+COPY ./map-app/ ./
 
-#RUN npm config set package-lock false
+RUN npm config set package-lock false
 
 RUN npm i
 
